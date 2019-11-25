@@ -1248,6 +1248,7 @@ class QLearning(MDP):
             'Time': _time.time() - self.time,
             'Alpha': self.alpha,
             'Epsilon': self.epsilon,
+            'Gamma': self.gamma,
             'Max V': _np.max(v),
             'Mean V': _np.mean(v),
             'Iteration': i,
