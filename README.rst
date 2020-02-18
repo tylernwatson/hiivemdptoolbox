@@ -1,18 +1,6 @@
 Markov Decision Process (MDP) Toolbox for Python
 ================================================
 
-.. image:: https://travis-ci.org/sawcordwell/pymdptoolbox.svg?branch=master
-    :target: https://travis-ci.org/sawcordwell/pymdptoolbox
-    :alt: Build Status
-.. image:: https://coveralls.io/repos/sawcordwell/pymdptoolbox/badge.png
-    :target: https://coveralls.io/r/sawcordwell/pymdptoolbox
-    :alt: Code Coverage
-.. image:: https://pypip.in/py_versions/pymdptoolbox/badge.svg
-    :target: https://pypi.python.org/pypi/pymdptoolbox/
-    :alt: Supported Python versions
-.. image:: https://pypip.in/implementation/pymdptoolbox/badge.svg
-    :target: https://pypi.python.org/pypi/pymdptoolbox/
-    :alt: Supported Python implementations
 .. image:: https://pypip.in/license/pymdptoolbox/badge.svg
     :target: https://pypi.python.org/pypi/pymdptoolbox/
     :alt: License
@@ -21,6 +9,9 @@ The MDP toolbox provides classes and functions for the resolution of
 descrete-time Markov Decision Processes. The list of algorithms that have been
 implemented includes backwards induction, linear programming, policy iteration,
 q-learning and value iteration along with several variations.
+
+**(Note: I've made some modifications and extensions to this to fix a couple of bugs,
+and add MDP visualization capabilities - Andrew Rollings)**
 
 The classes and functions were developped based on the
 `MATLAB <http://www.mathworks.com/products/matlab/>`_
@@ -89,50 +80,17 @@ are both zip and tar.gz archive options available that can be downloaded.
 However, I recommend using `pip <https://pip.pypa.io/en/latest/>`_ to install
 the toolbox if you have it available. Just type
 
-  ``pip install pymdptoolbox``
+  ``pip install mdptoolbox-hiive``
 
 at the console and it should take care of downloading and installing everything
-for you. If you also want cvxopt to be automatically downloaded and installed
-so that you can help test the linear programming algorithm then type
-
-  ``pip install "pymdptoolbox[LP]"``
-
-If you want it to be installed just for you rather than system wide then do
-
-  ``pip install --user pymdptoolbox``
-
-If you downloaded the package manually from PyPI
-
-  1. Extract the `*.zip` or `*.tar.gz` archive
-
-     ``tar -xzvf pymdptoolbox-<VERSION>.tar.gz``
-
-     ``unzip pymdptoolbox-<VERSION>``
-
-  2. Change to the PyMDPtoolbox directory
-
-     ``cd pymdptoolbox``
-
-  3. Install via Setuptools, either to the root filesystem or to your home
-     directory if you don't have administrative access.
-
-     ``python setup.py install``
-
-     ``python setup.py install --user``
-
-     Read the
-     `Setuptools documentation <https://pythonhosted.org/setuptools/>`_ for
-     more advanced information.
-
-Of course you can also use virtualenv or simply just unpack it to your working
-directory.
+for you.
 
 GitHub
 ~~~~~~
 
 Clone the Git repository
 
-    ``git clone https://github.com/sawcordwell/pymdptoolbox.git``
+    ``git clone https://github.com/hiive/hiivemdptoolbox.git``
 
 and then follow from step two above. To learn how to use Git then I reccomend
 reading the freely available `Pro Git book <http://git-scm.com/book>`_ written

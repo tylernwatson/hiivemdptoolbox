@@ -2,12 +2,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='hiive.mdptoolbox',
-    version='4.0-b4-dev',
+    name='mdptoolbox-hiive',
+    version='4.0.3.1',
     
     author='Andrew Rollings (originally Steven A. W. Cordwell)',
     author_email='a.rollings@hiive.com',
     url='https://github.com/hiive/hiivemdptoolbox',
+    download_url='https://github.com/hiive/hiivemdptoolbox/archive/4.0.3.1.tar.gz',
     description='Markov Decision Process (MDP) Toolbox',
     long_description='The MDP toolbox provides classes and functions for '
                      'the resolution of discrete-time Markov Decision Processes. The list of '
@@ -24,7 +25,8 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3+',
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Mathematics',
         'Topic :: Software Development :: Libraries :: Python Modules'],
