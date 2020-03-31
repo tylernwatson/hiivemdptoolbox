@@ -35,7 +35,7 @@ setup(
 
     keywords='mdpviz rl',
 
-    packages=['hiive.mdptoolbox', 'hiive.examples'],
+    packages=['hiive.mdptoolbox', 'hiive.examples', 'hiive.visualization', 'hiive.visualization.mdpviz', 'hiive.visualization.mdpviz.dsl'],
 
     install_requires=['numpy', 'scipy', 'gym', 'ipython', 'networkx', 'pydot'],
     extras_require={'LP': 'cvxopt'},
