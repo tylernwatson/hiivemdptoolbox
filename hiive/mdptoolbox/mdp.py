@@ -1009,7 +1009,10 @@ class PolicyIterationModified(PolicyIteration):
 
 
 class QLearning(MDP):
-    """A discounted MDP solved using the Q learning algorithm.
+    """
+    Changed by Tyler.
+    
+    A discounted MDP solved using the Q learning algorithm.
 
     Parameters
     ----------
@@ -1177,6 +1180,16 @@ class QLearning(MDP):
             # Q[s, a] = Q[s, a] + alpha*(R + gamma*Max[Q(s’, A)] - Q[s, a])
             # Updating the value of Q
             dQ = self.alpha * (r + self.gamma * self.Q[s_new, :].max() - self.Q[s, a])
+            if dQ < .01:
+                self._endRun()
+                # add stragglers
+                if len(v_cumulative) > 0:
+                    self.v_mean.append(_np.mean(v_cumulative, axis=1))
+                if len(error_cumulative) > 0:
+                    self.error_mean.append(_np.mean(error_cumulative))
+                if self.run_stats is None or len(self.run_stats) == 0:
+                    self.run_stats = run_stats
+                return self.run_stats
             self.Q[s, a] = self.Q[s, a] + dQ
 
             # Computing means all over maximal Q variations values
