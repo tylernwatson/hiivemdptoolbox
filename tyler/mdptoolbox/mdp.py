@@ -1010,7 +1010,7 @@ class PolicyIterationModified(PolicyIteration):
 
 class QLearning(MDP):
     """
-    Changed by Tyler.
+    Changed by Tyler 3.
     
     A discounted MDP solved using the Q learning algorithm.
 
@@ -1144,7 +1144,11 @@ class QLearning(MDP):
         s = _np.random.randint(0, self.S)
         reset_s = False
         run_stats = []
-        for n in range(1, self.max_iter + 1):
+        dQ_mean_list = [1 for x in range(1000)]
+        dQ_mean = _np.mean(dQ_mean_list)
+        n = 0
+        while (dQ_mean > .00000001) or (n < self.max_iter):
+        # for n in range(1, self.max_iter + 1):
 
             take_run_stat = n % self.run_stat_frequency == 0 or n == self.max_iter
 
@@ -1180,16 +1184,10 @@ class QLearning(MDP):
             # Q[s, a] = Q[s, a] + alpha*(R + gamma*Max[Q(s’, A)] - Q[s, a])
             # Updating the value of Q
             dQ = self.alpha * (r + self.gamma * self.Q[s_new, :].max() - self.Q[s, a])
-            if dQ < .01:
-                self._endRun()
-                # add stragglers
-                if len(v_cumulative) > 0:
-                    self.v_mean.append(_np.mean(v_cumulative, axis=1))
-                if len(error_cumulative) > 0:
-                    self.error_mean.append(_np.mean(error_cumulative))
-                if self.run_stats is None or len(self.run_stats) == 0:
-                    self.run_stats = run_stats
-                return self.run_stats
+            dQ_mean_list.append(dQ)
+            dQ_mean_list = dQ_mean_list[1:]
+            dQ_mean = _np.mean(dQ_mean_list)
+
             self.Q[s, a] = self.Q[s, a] + dQ
 
             # Computing means all over maximal Q variations values
@@ -1201,7 +1199,7 @@ class QLearning(MDP):
             p = self.Q.argmax(axis=1)
             self.policy = p
 
-            run_stats.append(self._build_run_stat(i=n, s=s, a=a, r=r, p=p, v=v, error=error))
+            run_stats.append(self._build_run_stat(i=n, s=s, a=a, r=r, p=p, v=v, error=error, dQ_mean=dQ_mean))
 
             if take_run_stat:
                 error_cumulative.append(error)
@@ -1242,6 +1240,8 @@ class QLearning(MDP):
             if self.epsilon < self.epsilon_min:
                 self.epsilon = self.epsilon_min
 
+            n += 1
+
         self._endRun()
         # add stragglers
         if len(v_cumulative) > 0:
@@ -1252,7 +1252,7 @@ class QLearning(MDP):
             self.run_stats = run_stats
         return self.run_stats
 
-    def _build_run_stat(self, i, a, error, p, r, s, v):
+    def _build_run_stat(self, i, a, error, p, r, s, v, dQ_mean):
         run_stat = {
             'State': s,
             'Action': a,
@@ -1264,6 +1264,7 @@ class QLearning(MDP):
             'Gamma': self.gamma,
             'Max V': _np.max(v),
             'Mean V': _np.mean(v),
+            'Delta Q Mean': dQ_mean,
             'Iteration': i,
             # 'Value': v.copy(),
             # 'Policy': p.copy()
